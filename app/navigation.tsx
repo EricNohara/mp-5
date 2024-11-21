@@ -23,7 +23,7 @@ export default function Navigation() {
         <Button
           color="inherit"
           onClick={() => {
-            router.push("/link");
+            router.push("/links");
           }}
         >
           Links

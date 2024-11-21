@@ -1,5 +1,7 @@
 "use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 
@@ -10,6 +12,8 @@ const InputForm = styled.form`
 `;
 
 export default function AliasInputForm() {
+  const router = useRouter();
+
   const [aliasUrl, setAliasUrl] = useState({ alias: "", url: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +24,22 @@ export default function AliasInputForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<SubmitEvent>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const res = await fetch("/api/alias", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(aliasUrl),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert("Error: " + data.message);
+    } else {
+      router.push("/links");
+    }
   };
 
   return (

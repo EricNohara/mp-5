@@ -1,6 +1,14 @@
 import getCollection, { URL_COLLECTION } from "@/db";
-import { get } from "http";
 import { NextResponse } from "next/server";
+
+function isValidUrl(url: string): boolean {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export async function GET(req: Request) {
   try {
@@ -19,6 +27,10 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const { alias, url }: { alias: string; url: string } = await req.json();
+
+    if (!isValidUrl(url)) {
+      return NextResponse.json({ message: "Invalid URL" }, { status: 400 });
+    }
 
     const collection = await getCollection(URL_COLLECTION);
 
@@ -64,6 +76,10 @@ export async function PUT(req: Request) {
         { message: "Missing required fields" },
         { status: 400 }
       );
+    }
+
+    if (!isValidUrl(urlNew)) {
+      return NextResponse.json({ message: "Invalid URL" }, { status: 400 });
     }
 
     const filter = { alias: alias, url: url };
