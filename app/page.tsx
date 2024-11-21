@@ -1,3 +1,5 @@
+import AliasInputForm from "./aliasInputForm";
+
 export default function Home() {
-  return <p>test</p>;
+  return <AliasInputForm />;
 }
