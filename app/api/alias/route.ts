@@ -36,6 +36,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: Request) {
   try {
     const { alias, url }: { alias: string; url: string } = await req.json();
+    const trimmedAlias = alias.trim();
 
     if (!isValidUrl(url)) {
       return NextResponse.json({ message: "Invalid URL" }, { status: 400 });
@@ -43,7 +44,7 @@ export async function POST(req: Request) {
 
     const collection = await getCollection(URL_COLLECTION);
 
-    const result = await collection.findOne({ alias });
+    const result = await collection.findOne({ alias: trimmedAlias });
 
     if (result) {
       return NextResponse.json(
