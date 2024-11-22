@@ -27,7 +27,7 @@ export default function LinkRedirectPage() {
     };
 
     fetcher();
-  }, []);
+  });
 
   return (
     <Box

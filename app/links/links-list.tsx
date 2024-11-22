@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import Delete from "@mui/icons-material/Delete";
 import { ContentCopy } from "@mui/icons-material";
-import { Check } from "@mui/icons-material";
 
 export default function LinksList() {
   const [links, setLinks] = useState([]);
