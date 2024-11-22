@@ -12,8 +12,13 @@ import {
 import Delete from "@mui/icons-material/Delete";
 import { ContentCopy } from "@mui/icons-material";
 
+interface LinkItem {
+  alias: string;
+  url: string;
+}
+
 export default function LinksList() {
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<LinkItem[]>([]);
 
   useEffect(() => {
     const fetcher = async () => {
